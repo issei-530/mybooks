@@ -1,0 +1,19 @@
+<h1><%= @book.title %></h1>
+<p><strong>著者:</strong> <%= @book.author %></p>
+<p><strong>説明:</strong> <%= @book.description %></p>
+
+<h3>感想</h3>
+<%= form_with(model: [ @book, @review ], local: true) do |f| %>
+  <%= f.text_area :content, rows: 4 %>
+  <%= f.submit "投稿" %>
+<% end %>
+
+<h4>投稿された感想</h4>
+<ul>
+  <% @book.reviews.each do |review| %>
+    <li><strong><%= review.user.nickname %>:</strong> <%= review.content %></li>
+  <% end %>
+</ul>
+
+<%= link_to '編集', edit_book_path(@book) %> |
+<%= link_to '一覧に戻る', books_path %>
