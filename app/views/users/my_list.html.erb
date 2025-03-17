@@ -1,0 +1,17 @@
+<h1><%= @user.nickname %>のマイリスト</h1>
+
+<% if @books.any? %>
+  <ul>
+    <% @books.each do |user_book| %>
+      <li>
+        <%= link_to user_book.book.title, book_path(user_book.book) %>
+
+        <%= link_to '削除', remove_from_mylist_path(user_book), method: :delete, data: { confirm: '本をマイリストから削除しますか？' }%>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>まだマイリストに本がありません</p>
+<% end %>
+
+<%= link_to 'トップページに戻る', root_path%>

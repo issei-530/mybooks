@@ -15,5 +15,10 @@
   <% end %>
 </ul>
 
+<%= form_with url: add_to_mylist_book_path(@book), method: :post, local: true do |f| %>
+  <%= f.submit 'マイリストに追加' %>
+<% end %>
+
 <%= link_to '編集', edit_book_path(@book) %> |
 <%= link_to '一覧に戻る', books_path %>
+<%= link_to 'マイリスト', my_list_user_path(current_user) %>

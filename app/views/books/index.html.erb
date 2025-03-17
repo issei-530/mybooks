@@ -3,6 +3,7 @@
 <% if user_signed_in? %>
   <!-- ログイン中のユーザーには「ログアウト」のリンクを表示 -->
   <p>ようこそ、<%= current_user.nickname %>さん！</p>
+  <%= link_to 'マイリスト', my_list_user_path(current_user) %>
   <%= link_to 'ログアウト', destroy_user_session_path, data: {turbo_method: :delete} %>
 <% else %>
   <!-- 未ログインのユーザーには「新規登録」と「ログイン」のリンクを表示 -->
