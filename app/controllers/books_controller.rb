@@ -48,8 +48,9 @@ class BooksController < ApplicationController
   end
 
   def add_to_mylist
+    @book = Book.find(params[:id])
     current_user.books << @book
-    redirect_to books_path, notice: 'Book was successfully added to your list.'
+    redirect_to @book, notice: '本がマイリストに追加されました！'
   end
   
   def remove_from_mylist
