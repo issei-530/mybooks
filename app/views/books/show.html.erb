@@ -21,4 +21,4 @@
 
 <%= link_to '編集', edit_book_path(@book) %> |
 <%= link_to '一覧に戻る', books_path %>
-<%= link_to 'マイリスト', my_list_user_path(current_user) %>
+<%= link_to 'マイリスト', my_list_user_path(current_user.id) %>

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy, :show]
   before_action :move_to_index, except: [:index, :show]
   before_action :set_book, only: [:show, :edit, :update, :destroy, :add_to_mylist, :remove_from_mylist]
   
@@ -8,6 +8,14 @@ class BooksController < ApplicationController
       @books = Book.where("title LIKE ?", "%#{params[:search]}%")
     else
       @books = Book.all
+    end
+
+    if params[:search].present?
+      @books = Book.search(params[:search])
+      @reviews = Review.search(params[:search])
+    else
+      @books = Book.all
+      @reviews = Review.all
     end
   end
 

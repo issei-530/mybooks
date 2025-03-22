@@ -3,7 +3,7 @@
 <% if user_signed_in? %>
   <!-- ログイン中のユーザーには「ログアウト」のリンクを表示 -->
   <p>ようこそ、<%= current_user.nickname %>さん！</p>
-  <%= link_to 'マイリスト', my_list_user_path(current_user) %>
+  <%= link_to 'マイリスト', my_list_user_path(current_user.id) %>
   <%= link_to 'ログアウト', destroy_user_session_path, data: {turbo_method: :delete} %>
 <% else %>
   <!-- 未ログインのユーザーには「新規登録」と「ログイン」のリンクを表示 -->
@@ -13,12 +13,17 @@
 
 <%= link_to '新しい本を投稿', new_book_path %>
 
-<%= form_with url: books_path, method: :get, local: true do %>
-  <%= label_tag :search, "本の名前で検索" %>
-  <%= text_field_tag :search, params[:search], placeholder: "検索" %>
-  <%= submit_tag "検索" %>
+<%= form_with url: books_path, method: :get, local: true do |b| %>
+  <%= b.label :search, "本の名前で検索　" %>
+  <%= b.text_field :search, value: params[:search], placeholder: "検索" %>
+  <%= b.submit "検索" %>
 <% end %>
 
+<%= form_with url: books_path, method: :get, local: true do |b| %>
+  <%= b.label :search, "キーワードで検索" %>
+  <%= b.text_field :search, value: params[:search], placeholder: "検索"%>
+  <%= b.submit "検索" %>
+<% end %>
 <table>
   <thead>
     <tr>
