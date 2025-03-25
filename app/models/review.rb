@@ -4,7 +4,7 @@ class Review < ApplicationRecord
 
   validates :content, presence: true
 
-  def self.search(query)
+  def self.keyword(query)
     if query.present?
       where("content LIKE ?", "%#{query}%")
     else

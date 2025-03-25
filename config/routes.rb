@@ -7,16 +7,10 @@ Rails.application.routes.draw do
   delete 'user_books/:id', to: 'user_books#destroy', as: 'remove_from_mylist'
 
   resources :books do
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create, :destroy]
     member do
       post 'add_to_mylist'
       delete 'remove_from_mylist'
-    end
-  end
-
-  resources :users do
-    member do
-      get 'my_list'
     end
   end
 

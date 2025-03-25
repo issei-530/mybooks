@@ -12,6 +12,7 @@
 <% end %>
 
 <%= link_to '新しい本を投稿', new_book_path %>
+<%= link_to '本一覧表示', books_path %>
 
 <%= form_with url: books_path, method: :get, local: true do |b| %>
   <%= b.label :search, "本の名前で検索　" %>
@@ -20,10 +21,11 @@
 <% end %>
 
 <%= form_with url: books_path, method: :get, local: true do |b| %>
-  <%= b.label :search, "キーワードで検索" %>
-  <%= b.text_field :search, value: params[:search], placeholder: "検索"%>
+  <%= b.label :keyword, "キーワードで検索" %>
+  <%= b.text_field :keyword, value: params[:keyword], placeholder: "検索"%>
   <%= b.submit "検索" %>
 <% end %>
+
 <table>
   <thead>
     <tr>
@@ -38,7 +40,7 @@
   <tbody>
     <% @books.each do |book| %>
       <tr>
-        <td><%= book.title %></td>
+        <td><%= link_to book.title, book_path(book) %></td>
         <td><%= book.author %></td>
         <td><%= link_to '詳細', book_path(book) %></td>
         <td><%= link_to '編集', edit_book_path(book) %></td>

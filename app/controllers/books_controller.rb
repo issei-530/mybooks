@@ -4,18 +4,14 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy, :add_to_mylist, :remove_from_mylist]
   
   def index
-    if params[:search]
-      @books = Book.where("title LIKE ?", "%#{params[:search]}%")
-    else
-      @books = Book.all
-    end
+    @books = Book.all
 
     if params[:search].present?
-      @books = Book.search(params[:search])
-      @reviews = Review.search(params[:search])
-    else
-      @books = Book.all
-      @reviews = Review.all
+      @books = @books.where('books.title LIKE ?', "%#{params[:search]}%")
+    end
+
+    if params[:keyword].present?
+      @books = @books.joins(:reviews).where('reviews.content LIKE ?', "%#{params[:keyword]}%").distinct
     end
   end
 
